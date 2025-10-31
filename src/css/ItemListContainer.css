@@ -1,0 +1,8 @@
+.main-container {
+  background-color: #91d1a2;
+  display: flex;
+  align-items: flex-start;
+
+  width: 100vw;
+  height: 100vh;
+}
