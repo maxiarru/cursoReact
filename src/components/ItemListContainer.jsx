@@ -3,9 +3,9 @@ import "../css/ItemListContainer.css";
 const ItemListContainer = ({ mensaje }) => {
   // const {mensaje}=props
   return (
-    <div className="main-container">
+    <main className="main-container">
       <h1>{mensaje}</h1>
-    </div>
+    </main>
   );
 };
 export default ItemListContainer;

@@ -1,8 +1,12 @@
 .main-container {
   background-color: #91d1a2;
   display: flex;
-  align-items: flex-start;
-
+  justify-content: center;
   width: 100vw;
   height: 100vh;
+  padding-top: 20px;
+  min-width: 750px;
+}
+.main-container h1 {
+  font-size: 28px;
 }

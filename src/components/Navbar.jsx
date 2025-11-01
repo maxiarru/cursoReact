@@ -15,6 +15,9 @@ const Navbar = () => {
       <a className="anchor-nav" href="">
         Contacto
       </a>
+      <a className="anchor-nav" href="">
+        Quienes Somos
+      </a>
       <CartWidget counter={0} />
     </nav>
   );
