@@ -1,0 +1,52 @@
+.about-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fffef6;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease;
+}
+
+.about-title {
+  text-align: center;
+  color: #4c5a32;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-text {
+  font-size: 1.2rem;
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+  color: #5c5c5c;
+}
+
+.about-contact {
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background: #fcf8e8;
+  border-radius: 12px;
+  border-left: 5px solid #e3c87c;
+}
+
+.about-link {
+  text-decoration: none;
+  color: #d09e39;
+  font-weight: bold;
+}
+
+.about-link:hover {
+  color: #b7882e;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

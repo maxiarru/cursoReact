@@ -10,3 +10,16 @@
 .main-container h1 {
   font-size: 28px;
 }
+.category-title {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2rem;
+  color: #4c5a32; /* verde oliva suave */
+}
+
+.category-name {
+  margin-left: 0.5rem;
+  text-transform: capitalize;
+  color: #a79b63; /* dorado pastel */
+  font-weight: bold;
+}
