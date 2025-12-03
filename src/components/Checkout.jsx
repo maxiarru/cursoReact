@@ -19,33 +19,51 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const soloLetras = (text) => /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(text);
 
   console.log(buyer);
   const finalizarCompra = (e) => {
     e.preventDefault(); //para no hacer que el form actualice toda la pestaña
+
+    // VALIDACIÓN 1: campos vacíos
     if (!buyer.name || !buyer.lastname || !buyer.email || !validMail) {
       setError("Por favor complete todos los campos");
-    } else if (buyer.email !== validMail) {
-      setError("Los correos no coinciden");
-    } else {
-      setError(null);
-      setProcess(true);
-      let orden = {
-        comprador: buyer,
-        compras: cart,
-        total: total(), //llamar la ala funcion total de tu contexto
-        fecha: serverTimestamp(),
-      };
-      const ventas = collection(db, "orders");
-      //agregar el doc
-      addDoc(ventas, orden)
-        .then((res) => {
-          setOrderId(res.id);
-          clear();
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setProcess(false));
+      return;
     }
+
+    // VALIDACIÓN 2: emails iguales
+    if (buyer.email !== validMail) {
+      setError("Los correos no coinciden");
+      return;
+    }
+
+    // VALIDACIÓN 3: nombre válido
+    if (!soloLetras(buyer.name) || !soloLetras(buyer.lastname)) {
+      setError("El nombre y apellido solo deben contener letras.");
+      return;
+    }
+    // VALIDACIÓN 4: nombre debe tener mas de 2 letras
+    if (buyer.name.length < 2) {
+      setError("El nombre y apellido deben tener al menos 2 caracteres.");
+      return;
+    }
+    setError(null);
+    setProcess(true);
+    let orden = {
+      comprador: buyer,
+      compras: cart,
+      total: total(), //llamar la ala funcion total de tu contexto
+      fecha: serverTimestamp(),
+    };
+    const ventas = collection(db, "orders");
+    //agregar el doc
+    addDoc(ventas, orden)
+      .then((res) => {
+        setOrderId(res.id);
+        clear();
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setProcess(false));
   };
 
   if (!cart.length && !orderId) {
