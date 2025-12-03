@@ -4,15 +4,14 @@ import ItemDetail from "./ItemDetail";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../service/firebase";
+import LoaderComponent from "./LoaderComponent";
 
 const ItemDetailContainer = () => {
   const [detalle, setDetalle] = useState({});
   const [cargando, setCargando] = useState(true);
   const [invalid, setInvalid] = useState(null);
-  //  const param = useParams()
-  //  console.log(param)
   const { id } = useParams();
-  // console.log(id, 'id')
+
   useEffect(() => {
     // creo referencia
     const docRef = doc(db, "productos", id);
@@ -46,7 +45,11 @@ const ItemDetailContainer = () => {
   }
   return (
     <>
-      <ItemDetail detalle={detalle} />
+      {cargando ? (
+        <LoaderComponent text={"Cargando detalle de producto"} />
+      ) : (
+        <ItemDetail detalle={detalle} />
+      )}
     </>
   );
 };

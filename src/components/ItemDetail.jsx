@@ -1,11 +1,17 @@
 import "../css/ItemDetail.css";
 import ItemCount from "./ItemCount";
+import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 const ItemDetail = ({ detalle }) => {
+  const [purchase, setPurchase] = useState(false);
+  const { addItem, itemQuantity } = useContext(CartContext);
   const onAdd = (cantidad) => {
-    console.log(`Agregaste ${cantidad} unidades del producto ${detalle.name}`);
+    addItem(detalle, cantidad);
+    setPurchase(true);
   };
-
+  const stockActualizado = detalle.stock - itemQuantity(detalle.id);
   return (
     <div className="item-detail-container">
       <img src={detalle.img} alt={detalle.name} className="item-detail-image" />
@@ -18,10 +24,16 @@ const ItemDetail = ({ detalle }) => {
         <p className="item-detail-description">{detalle.description}</p>
 
         <p className="item-detail-stock">
-          Stock disponible: {detalle.stock} unidades
+          Stock disponible: {stockActualizado} unidades
         </p>
 
-        <ItemCount stock={detalle.stock} onAdd={onAdd} />
+        {purchase ? (
+          <Link className="btn btn-dark" to="/cart">
+            Ir al carrito
+          </Link>
+        ) : (
+          <ItemCount stock={stockActualizado} onAdd={onAdd} />
+        )}
       </div>
     </div>
   );

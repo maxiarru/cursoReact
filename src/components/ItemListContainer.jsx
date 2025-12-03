@@ -10,15 +10,15 @@ import { db } from "../service/firebase";
 const ItemListContainer = ({ mensaje }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { type } = useParams();
+  const { categoryId } = useParams();
 
   // firebase
 
   useEffect(() => {
     setLoading(true);
     // conectar a nuestra coleccion
-    const prodCollection = type
-      ? query(collection(db, "productos"), where("category", "==", type))
+    const prodCollection = categoryId
+      ? query(collection(db, "productos"), where("category", "==", categoryId))
       : collection(db, "productos");
     // pedir los doc
     getDocs(prodCollection)
@@ -37,7 +37,7 @@ const ItemListContainer = ({ mensaje }) => {
       })
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
-  }, [type]);
+  }, [categoryId]);
 
   if (loading) {
     return (
@@ -64,7 +64,7 @@ const ItemListContainer = ({ mensaje }) => {
     <div>
       <h1 className="category-title">
         {mensaje}
-        {type && <span className="category-name">{type}</span>}
+        {categoryId && <span className="category-name">{categoryId}</span>}
       </h1>
       {/* Boton para subir productos a firebase */}
       {/* <button onClick={subirData}>SUBIR DATA</button> */}
