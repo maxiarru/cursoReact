@@ -1,6 +1,5 @@
 import "../css/ItemListContainer.css";
 import { useEffect, useState } from "react";
-// import { products } from "../mock/AsyncMock";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
@@ -16,23 +15,17 @@ const ItemListContainer = ({ mensaje }) => {
 
   useEffect(() => {
     setLoading(true);
-    // conectar a nuestra coleccion
     const prodCollection = categoryId
       ? query(collection(db, "productos"), where("category", "==", categoryId))
       : collection(db, "productos");
-    // pedir los doc
     getDocs(prodCollection)
       .then((res) => {
-        //tratamos la promesa
-        //console.log(res) // el console log inusable
-        //limpiar y obtener datos
         const list = res.docs.map((doc) => {
           return {
             id: doc.id,
             ...doc.data(),
           };
         });
-        //console.log(list)
         setData(list);
       })
       .catch((error) => console.log(error))

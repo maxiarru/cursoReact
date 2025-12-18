@@ -7,12 +7,15 @@ import About from "./components/About";
 import { CartProvider } from "./context/CartContext";
 import CartContainer from "./components/CartContainer";
 import Checkout from "./components/Checkout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <BrowserRouter>
       <CartProvider>
         <Navbar />
+        <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           <Route
             path="/"

@@ -1,0 +1,40 @@
+.emptycart-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.emptycart-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #4b5d36;
+  margin-bottom: 10px;
+}
+
+.emptycart-subtitle {
+  font-size: 20px;
+  color: #6c7d55;
+  margin-bottom: 25px;
+}
+
+.emptycart-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #a6fad5;
+  color: #000;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.emptycart-btn:hover {
+  background-color: #8be6c1;
+  transform: scale(1.03);
+}

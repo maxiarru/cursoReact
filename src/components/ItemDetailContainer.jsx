@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
-// import { getOneProduct } from "../mock/AsyncMock";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../service/firebase";
@@ -13,9 +12,7 @@ const ItemDetailContainer = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // creo referencia
     const docRef = doc(db, "productos", id);
-    // traigo el doc item
     getDoc(docRef)
       .then((res) => {
         if (res.data()) {
@@ -28,11 +25,6 @@ const ItemDetailContainer = () => {
       .finally(() => setCargando(false));
   }, []);
 
-  // useEffect(() => {
-  //   getOneProduct(id)
-  //     .then((res) => setDetalle(res))
-  //     .catch((error) => console.log(error));
-  // }, [id]);
   if (invalid) {
     return (
       <div>

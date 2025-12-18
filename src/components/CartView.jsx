@@ -1,59 +1,82 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import "../css/CartView.css";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const CartView = () => {
   const { cart, removeItem, clear, total } = useContext(CartContext);
+
+  const handleClearCart = () => {
+    Swal.fire({
+      title: "¿Vaciar carrito?",
+      text: "Se eliminarán todos los productos",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clear();
+        Swal.fire({
+          title: "Carrito vaciado",
+          icon: "success",
+          timer: 1800,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
   return (
-    <div>
-      <h1>Tu carrito 🛒</h1>
-      <div>
+    <div className="cart-container">
+      <h1 className="cart-title">Tu carrito 🛒</h1>
+
+      <div className="cart-items">
         {cart.map((compra) => (
-          <div
-            key={compra.id}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              padding: "2rem",
-            }}
-          >
-            <img
-              src={compra.img}
-              alt={compra.name}
-              style={{ width: "10rem" }}
-            />
-            <span>{compra.name}</span>
-            <span>${compra.price},00</span>
-            <span>cantidad:{compra.quantity}</span>
-            <span>precio final: ${compra.quantity * compra.price},00</span>
+          <div className="cart-item" key={compra.id}>
+            <img className="cart-item-img" src={compra.img} alt={compra.name} />
+
+            <div className="cart-item-info">
+              <span className="cart-item-name">{compra.name}</span>
+              <span className="cart-item-unit">Precio: ${compra.price}</span>
+              <span className="cart-item-qty">Cantidad: {compra.quantity}</span>
+              <span className="cart-item-total">
+                Subtotal: ${compra.price * compra.quantity}
+              </span>
+            </div>
+
             <button
-              className="btn btn-danger"
-              onClick={() => removeItem(compra.id)}
+              className="cart-remove-btn"
+              onClick={() => {
+                removeItem(compra.id);
+                toast.info(`Eliminaste: ${compra.name}`, {
+                  position: "top-right",
+                  autoClose: 2000,
+                });
+              }}
             >
               X
             </button>
           </div>
         ))}
       </div>
-      {/* crear una funcion que recorra todo el array y de un solo resultado */}
-      <span>Total a pagar:${total()},00 </span>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "80%",
-          padding: "2rem",
-        }}
-      >
-        <button className="btn btn-danger" onClick={clear}>
-          Vaciar carrito
-        </button>
-        <Link className="btn btn-success" to="/checkout">
-          Terminar Compra
-        </Link>
+
+      <div className="cart-footer">
+        <span className="cart-total">Total a pagar: ${total()}</span>
+
+        <div className="cart-buttons">
+          <button className="cart-clear-btn" onClick={handleClearCart}>
+            Vaciar carrito
+          </button>
+
+          <Link className="cart-checkout-btn" to="/checkout">
+            Terminar Compra
+          </Link>
+        </div>
       </div>
     </div>
   );
